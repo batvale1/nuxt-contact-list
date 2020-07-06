@@ -1,0 +1,14 @@
+{
+  "lists": [
+    {
+      "name": "person 1",
+      "phone": "phone 1",
+      "userIdOwner": 1
+    },
+    {
+      "name": "person 2",
+      "phone": "phone 2",
+      "userIdOwner": 2
+    }
+  ]
+}
