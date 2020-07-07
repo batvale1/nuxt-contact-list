@@ -12,18 +12,11 @@
         placeholder="Name..."
       />
       <app-input
-        type="number"
-        v-model="price"
+        type="text"
+        v-model="phone"
         required
         class="editing-item-form__input"
-        placeholder="Price..."
-      />
-      <app-input
-        type="date"
-        v-model="date"
-        required
-        class="editing-item-form__input"
-        placeholder="Date..."
+        placeholder="Phone..."
       />
       <app-button
         class="editing-item-form__button"
@@ -49,8 +42,7 @@ export default {
   data() {
     return {
       name: '',
-      price: '',
-      date: '',
+      phone: '',
       id: '',
       isContentValid: true,
       errorText: '',
@@ -70,35 +62,38 @@ export default {
   },
   methods: {
     saveItem() {
-      if (this.name && this.price && this.date) {
+      if (this.name && this.phone) {
         this.isContentValid = true;
-        this.$store.dispatch('shopping-list/saveItem', {
+        this.$store.dispatch('contact-list/saveItem', {
           name: this.name,
-          price: this.price,
-          date: this.date,
+          phone: this.phone,
+          token: this.$store.getters['auth/getToken'],
           id: this.id,
         });
-        this.$store.dispatch('edit-item/resetCurrentItem');
-        if (this.action === 'Add') {
-          this.$nuxt.$emit('setFirstPaginationPage');
-        }
-        this.$store.commit('popup/togglePopupVisibility');
+        this.$store
+          .dispatch('edit-item/resetCurrentItem')
+          .catch((error) => {
+            this.errorText = error.response.data.message;
+            this.isContentValid = false;
+          })
+          .then(() => {
+            this.$store.commit('popup/togglePopupVisibility');
+          });
       } else {
         this.isContentValid = false;
-        this.errorText = 'Все поля должны быть заполнены.';
+        this.errorText = 'All fields are required.';
       }
     },
   },
   created() {
-    const currentCard = this.$store.getters['edit-item/getCurrentItem'];
+    const currentItem = this.$store.getters['edit-item/getCurrentItem'];
     if (
-      Object.keys(currentCard).length !== 0 &&
-      currentCard.constructor === Object
+      Object.keys(currentItem).length !== 0 &&
+      currentItem.constructor === Object
     ) {
-      this.name = currentCard.name;
-      this.price = currentCard.price;
-      this.date = currentCard.date;
-      this.id = currentCard.id;
+      this.name = currentItem.name;
+      this.phone = currentItem.phone;
+      this.id = currentItem.id;
     }
   },
 };

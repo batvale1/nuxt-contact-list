@@ -1,14 +1,1 @@
-{
-  "lists": [
-    {
-      "name": "person 1",
-      "phone": "phone 1",
-      "userIdOwner": 1
-    },
-    {
-      "name": "person 2",
-      "phone": "phone 2",
-      "userIdOwner": 2
-    }
-  ]
-}
+{"lists":[{"id":1,"name":"Josh","phone":"89725125421","userIdOwner":1},{"id":4,"name":"Alex","phone":"89725122321","userIdOwner":1},{"id":5,"name":"Liza","phone":"89723122321","userIdOwner":1},{"id":6,"name":"John","phone":"89722322321","userIdOwner":1},{"id":7,"name":"Olga","phone":"89722322334","userIdOwner":2},{"id":8,"name":"item 1","phone":"12345","userIdOwner":4},{"id":9,"name":"item 2","phone":"123456","userIdOwner":4}]}

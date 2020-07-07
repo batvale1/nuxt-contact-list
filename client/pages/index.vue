@@ -6,14 +6,14 @@
           <app-editing-item-form />
         </app-popup>
       </transition>
-      <app-shopping-list />
+      <app-contact-list />
     </app-container>
   </div>
 </template>
 
 <script>
 import Container from '@/components/shared/Container';
-import ShoppingList from '@/components/blocks/ShoppingList';
+import ContactList from '@/components/blocks/ContactList';
 import Popup from '@/components/service/Popup';
 import EditingItemForm from '@/components/blocks/EditingItemForm';
 export default {
@@ -58,7 +58,7 @@ export default {
   middleware: ['auth'],
   components: {
     'app-container': Container,
-    'app-shopping-list': ShoppingList,
+    'app-contact-list': ContactList,
     'app-popup': Popup,
     'app-editing-item-form': EditingItemForm,
   },
@@ -68,8 +68,11 @@ export default {
     },
   },
   async fetch({ store, route, error }) {
-    await store.dispatch('shopping-list/getList', {token: store.getters['auth/getToken']})
-      .catch(e => {
+    await store
+      .dispatch('contact-list/getList', {
+        token: store.getters['auth/getToken'],
+      })
+      .catch((e) => {
         error({ statusCode: 404, message: 'Post not found' });
       });
   },

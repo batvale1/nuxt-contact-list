@@ -1,8 +1,8 @@
 <template>
-  <div class="shopping-list">
-    <h1 class="shopping-list__heading">Shopping list</h1>
-    <div class="shopping-list__actions">
-      <app-button class="shopping-list__button" @click.native="addNewItem"
+  <div class="contact-list">
+    <h1 class="contact-list__heading">Contact list</h1>
+    <div class="contact-list__actions">
+      <app-button class="contact-list__button" @click.native="addNewItem"
         >Add item</app-button
       >
       <app-sort-by
@@ -10,17 +10,16 @@
         @selectOption="applySort"
       ></app-sort-by>
     </div>
-    <ul class="shopping-list__list">
+    <ul class="contact-list__list">
       <transition-group name="slide">
         <app-single-item
-          class="shopping-list__item"
+          class="contact-list__item"
           v-for="item in list"
           :key="item.id"
           :item="item"
         />
       </transition-group>
     </ul>
-    <app-pagination />
   </div>
 </template>
 
@@ -28,7 +27,7 @@
 import Button from '@/components/ui/Button';
 import SingleItem from '@/components/blocks/SingleItem';
 import SortBy from '@/components/ui/SortBy';
-import Pagination from '@/components/ui/Pagination';
+
 export default {
   data() {
     return {
@@ -39,35 +38,33 @@ export default {
     'app-button': Button,
     'app-single-item': SingleItem,
     'app-sort-by': SortBy,
-    'app-pagination': Pagination,
   },
   computed: {
     list() {
-      return this.$store.getters['shopping-list/getList'];
+      return this.$store.getters['contact-list/getList'];
     },
     sortOptions() {
-      return this.$store.getters['shopping-list/getSortOptions'];
+      return this.$store.getters['contact-list/getSortOptions'];
     },
   },
   methods: {
     addNewItem() {
       this.$store.commit('edit-item/setTitle', { title: 'Add item' });
-      this.$store.commit('edit-item/setAction', { action: 'Add' });
       this.$store.commit('popup/togglePopupVisibility');
     },
     applySort(e) {
-      this.$store.dispatch('shopping-list/sortItems', { id: e.id });
+      this.$store.dispatch('contact-list/sortItems', { id: e.id });
     },
   },
 };
 </script>
 
 <style scoped>
-.shopping-list {
+.contact-list {
   padding: 30px;
 }
 
-.shopping-list__heading {
+.contact-list__heading {
   font-weight: 900;
   font-size: 60px;
   line-height: 73px;
@@ -76,25 +73,25 @@ export default {
   margin-bottom: 30px;
 }
 
-.shopping-list__list {
+.contact-list__list {
   list-style: none;
   margin: 0 0 30px 0;
   padding: 0;
   position: relative;
 }
 
-.shopping-list__item {
+.contact-list__item {
   margin-bottom: 10px;
 }
 
-.shopping-list__button {
+.contact-list__button {
   width: 150px;
   margin-bottom: 30px;
   text-transform: uppercase;
   font-weight: 700;
 }
 
-.shopping-list__actions {
+.contact-list__actions {
   display: flex;
   justify-content: space-between;
 }

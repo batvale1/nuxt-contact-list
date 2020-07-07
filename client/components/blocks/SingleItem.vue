@@ -2,20 +2,17 @@
   <li class="single-shopping-item">
     <div class="single-shopping-item__info">
       <p class="single-shopping-item__property">{{ item.name }}</p>
-      <p class="single-shopping-item__property">
-        price: {{ item.price }}&#36;
-      </p>
-      <p class="single-shopping-item__property">date: {{ item.date }}</p>
-    </div>
-    <div class="single-shopping-item__controls">
-      <app-action-btn
-        :type="'edit'"
-        @click.native.stop.prevent="editItem"
-      ></app-action-btn>
-      <app-action-btn
-        :type="'delete'"
-        @click.native.stop.prevent="deleteItem"
-      ></app-action-btn>
+      <p class="single-shopping-item__property">{{ item.phone }}</p>
+      <div class="single-shopping-item__controls">
+        <app-action-btn
+          :type="'edit'"
+          @click.native.stop.prevent="editItem"
+        ></app-action-btn>
+        <app-action-btn
+          :type="'delete'"
+          @click.native.stop.prevent="deleteItem"
+        ></app-action-btn>
+      </div>
     </div>
   </li>
 </template>
@@ -34,12 +31,17 @@ export default {
   },
   methods: {
     deleteItem() {
-      this.$store.dispatch('shopping-list/deleteItem', { id: this.item.id });
+      this.$store
+        .dispatch('contact-list/deleteItem', {
+          id: this.item.id,
+          token: this.$store.getters['auth/getToken'],
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     editItem() {
-      this.$store.commit('edit-item/setCurrentItem', { item: this.item });
       this.$store.commit('edit-item/setTitle', { title: 'Change item' });
-      this.$store.commit('edit-item/setAction', { action: 'Change' });
       this.$store.commit('popup/togglePopupVisibility');
     },
   },
@@ -48,7 +50,7 @@ export default {
 
 <style scoped>
 /* .task */
-.single-shopping-item__link {
+.single-shopping-item__info {
   border: 1px solid #6f6f6f;
   border-radius: 5px;
   display: flex;
