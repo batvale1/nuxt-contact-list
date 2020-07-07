@@ -9,14 +9,14 @@
         minlength="2"
         maxlength="30"
         class="entry-form__input"
-        placeholder="Login..."
+        placeholder="email..."
       />
       <app-input
         type="password"
         v-model="password"
         required
         class="entry-form__input"
-        placeholder="Email..."
+        placeholder="password..."
       />
       <app-button
         class="entry-form__button"
@@ -71,7 +71,7 @@ export default {
         })
         .then(() => this.$router.push('/'))
         .catch((error) => {
-          this.errorText = error.response.data;
+          this.errorText = error.response.data.message;
           this.isContentValid = false;
         });
     },

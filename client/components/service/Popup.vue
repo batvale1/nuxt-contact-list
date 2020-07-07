@@ -14,11 +14,6 @@
 
 <script>
 export default {
-  computed: {
-    isEditItemShown() {
-      return this.$store.getters['quiz/getQuizVisibility'];
-    },
-  },
   methods: {
     togglePopup() {
       this.$store.dispatch('edit-item/resetCurrentItem');

@@ -1,9 +1,9 @@
 <template>
-  <li class="single-shopping-item">
-    <div class="single-shopping-item__info">
-      <p class="single-shopping-item__property">{{ item.name }}</p>
-      <p class="single-shopping-item__property">{{ item.phone }}</p>
-      <div class="single-shopping-item__controls">
+  <li class="single-contact-item">
+    <div class="single-contact-item__info">
+      <p class="single-contact-item__property">{{ item.name }}</p>
+      <p class="single-contact-item__property">{{ item.phone }}</p>
+      <div class="single-contact-item__controls">
         <app-action-btn
           :type="'edit'"
           @click.native.stop.prevent="editItem"
@@ -42,6 +42,7 @@ export default {
     },
     editItem() {
       this.$store.commit('edit-item/setTitle', { title: 'Change item' });
+      this.$store.commit('edit-item/setCurrentItem', {item: this.item});
       this.$store.commit('popup/togglePopupVisibility');
     },
   },
@@ -50,7 +51,7 @@ export default {
 
 <style scoped>
 /* .task */
-.single-shopping-item__info {
+.single-contact-item__info {
   border: 1px solid #6f6f6f;
   border-radius: 5px;
   display: flex;
@@ -60,14 +61,14 @@ export default {
   text-decoration: none;
 }
 
-.single-shopping-item__controls {
+.single-contact-item__controls {
   width: 126px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.single-shopping-item__property {
+.single-contact-item__property {
   margin: 0;
   font-weight: 900;
   font-size: 24px;

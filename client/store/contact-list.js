@@ -50,7 +50,6 @@ export const mutations = {
 export const actions = {
   getList: ({ commit }, payload) => {
     //имитация получения данных с сервера
-    console.log(payload.token);
     return axios
       .get(process.env.API_URL + '/lists', {
         headers: { Authorization: 'Bearer ' + payload.token },

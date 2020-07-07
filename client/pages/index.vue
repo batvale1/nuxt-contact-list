@@ -20,9 +20,9 @@ export default {
   data() {
     return {
       metas: {
-        meta_title: 'Shopping list',
-        meta_description: 'тестовое задание',
-        meta_keywords: 'тестовое задание',
+        meta_title: 'Contact list',
+        meta_description: 'test task',
+        meta_keywords: 'test task',
       },
     };
   },

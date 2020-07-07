@@ -1,8 +1,8 @@
 <template>
   <button
     :class="[
-      'single-shopping-item__btn',
-      `single-shopping-item__btn_type_${type}`,
+      'btn',
+      `btn_type_${type}`,
     ]"
     type="button"
   />
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-.single-shopping-item__btn {
+.btn {
   background: none;
   border: none;
   padding: 25px;
@@ -31,17 +31,17 @@ export default {
   height: 25px;
 }
 
-.single-shopping-item__btn:focus {
+.btn:focus {
   outline: none;
 }
 
-.single-shopping-item__btn_type_edit {
+.btn_type_edit {
   background-image: url('~assets/images/edit-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.single-shopping-item__btn_type_delete {
+.btn_type_delete {
   background-image: url('~assets/images/delete-icon.svg');
   background-repeat: no-repeat;
   background-position: center;

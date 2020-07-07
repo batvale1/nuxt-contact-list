@@ -26,10 +26,8 @@ function verifyToken(token) {
 
 // Check if the user exists in database
 function isAuthenticated({email, password}) {
-  fs.readFile("./users.json", (err, data) => {
-    data = JSON.parse(data.toString());
-    return data.users.findIndex(user => user.email === email && user.password === password) !== -1
-  });
+  const userDb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
+  return userDb.users.findIndex(user => user.email === email && user.password === password) !== -1
 }
 
 // Register New User
@@ -84,10 +82,11 @@ server.post('/auth/login', (req, res) => {
     const message = 'Incorrect email or password';
     res.status(status).json({status, message})
     return
+  } else {
+    const access_token = createToken({email, password});
+    const tokenData = verifyToken(access_token);
+    res.status(200).json({access_token, exp: tokenData.exp});
   }
-  const access_token = createToken({email, password});
-  const tokenData = verifyToken(access_token);
-  res.status(200).json({access_token, exp: tokenData.exp});
 })
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {

@@ -3,7 +3,6 @@
     class="input"
     type="text"
     required
-    placeholder="Разобраться в замыканиях"
     @input="$emit('input', $event.target.value)"
   />
 </template>
